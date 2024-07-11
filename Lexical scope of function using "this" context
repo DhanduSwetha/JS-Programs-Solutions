@@ -1,0 +1,50 @@
+/***Using normal Function***/ couldnt access "this" from inner function of object method due to lexical scope of functiona defination
+
+function Person() {
+	this.name = 'Jack',
+	this.age = 25,
+	this.sayHello = function () {
+	  console.log('Hello', this.name);     //Hello Jack
+	  function innerFunction() {
+		console.log(this.age);   //undefined
+	  }
+		  innerFunction();
+	   }
+	}
+	let x = new Person();
+	x.sayHello()
+	console.log(x);    // Person { name: 'Jack', age: 25, sayHello: [Function (anonymous)] }
+
+/*** To access this from inner function, we need to pass "this" reference from outer function explicitily ***/
+function Person() {
+	this.name = 'Jack',
+	this.age = 25,
+	this.sayHello = function () {
+	  console.log('Hello', this.name);     //Hello Jack
+	  function innerFunction(age) {
+		console.log(age);   //25
+	  }
+		  innerFunction(this.age);
+	   }
+	}
+	let x = new Person();
+	x.sayHello()
+	console.log(x);    // Person { name: 'Jack', age: 25, sayHello: [Function (anonymous)] }
+
+
+
+/***Using Arrow Function***/
+
+function Person() {
+	this.name = 'Jack',
+	this.age = 25,
+	this.sayHello = function () {
+	  console.log('Hello', this.name);      //Hello Jack
+const innerFunction = () => console.log(this.age);   //25
+		  innerFunction();
+	   }
+	}
+	let x = new Person();
+	x.sayHello()
+	console.log(x);    //Person { name: 'Jack', age: 25, sayHello: [Function (anonymous)] }
+
